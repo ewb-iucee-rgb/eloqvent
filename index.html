@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELOQVENT 2K26 | Tech. Talk. Triumph. — 3rd Edition</title>
+  <meta name="description" content="ELOQVENT 2K26: Regional Level Conclave. Two Flagship Tracks: Elocution & Root Riddle.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Clean Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-black text-neutral-100 antialiased selection:bg-neutral-800 selection:text-white">
+
+  <!-- ========================================================================= -->
+  <!-- 1. OPENING ANIMATION OVERLAY (Clean, Smooth, Apple-like, Auto-Fading)      -->
+  <!-- ========================================================================= -->
+  <div id="intro-overlay" class="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center transition-opacity duration-700 pointer-events-auto px-6">
+    <div class="text-center max-w-2xl">
+      <p class="text-xs uppercase tracking-[0.25em] text-neutral-500 mb-3 font-medium">Regional Level • 3rd Edition</p>
+      <h1 id="intro-event-title" class="text-5xl sm:text-7xl md:text-8xl font-extrabold tracking-tight text-white mb-4 transition-all duration-700 opacity-0 scale-95">
+        ELOQVENT <span class="text-neutral-400">2K26</span>
+      </h1>
+      <p id="intro-tagline-text" class="text-xl sm:text-2xl font-light text-neutral-400 tracking-wide transition-all duration-700 opacity-0 translate-y-3">
+        Tech. Talk. Triumph.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- 2. CLEAN APPLE NAVIGATION BAR                                             -->
+  <!-- ========================================================================= -->
+  <header class="fixed top-0 left-0 right-0 z-40 apple-nav">
+    <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <!-- Brand -->
+      <a href="#hero" class="flex items-center gap-2.5">
+        <span class="font-bold text-white tracking-tight text-lg">ELOQVENT</span>
+        <span class="text-xs px-2 py-0.5 rounded-full bg-neutral-900 border border-neutral-700 text-neutral-300 font-mono">2K26</span>
+      </a>
+
+      <!-- Clean Links (In Updated Section Order) -->
+      <div class="hidden md:flex items-center gap-8 text-sm text-neutral-400 font-medium">
+        <a href="#about" class="hover:text-white transition-colors">About</a>
+        <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+        <a href="#tracks" class="hover:text-white transition-colors">Tracks</a>
+        <a href="#gallery" class="hover:text-white transition-colors">Past Editions</a>
+        <a href="#coordinators" class="hover:text-white transition-colors">Contact</a>
+      </div>
+
+      <!-- Header CTA -->
+      <div class="flex items-center gap-3">
+        <div class="hidden sm:flex items-center gap-1.5 text-xs text-neutral-400 font-mono px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+          <span class="live-reg-count font-semibold text-white">148</span>
+          <span>Registered</span>
+        </div>
+
+        <button data-open-register class="px-4 py-1.5 rounded-full bg-white text-black font-semibold text-xs sm:text-sm hover:bg-neutral-200 transition-all">
+          Register
+        </button>
+      </div>
+    </nav>
+  </header>
+
+
+  <!-- ========================================================================= -->
+  <!-- 3. HERO SECTION                                                           -->
+  <!-- ========================================================================= -->
+  <section id="hero" class="min-h-screen pt-32 pb-20 px-6 flex flex-col justify-center items-center text-center max-w-5xl mx-auto">
+    <!-- Category Badge (Changed to "Regional Level • 3rd Edition") -->
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-xs text-neutral-400 mb-8">
+      <span>Regional Level</span>
+      <span class="text-neutral-600">•</span>
+      <span class="text-white font-medium">3rd Edition</span>
+    </div>
+
+    <!-- Event Title -->
+    <h1 class="text-6xl sm:text-8xl md:text-9xl font-extrabold tracking-tight text-white mb-4 animate-hero-title">
+      ELOQVENT 2K26
+    </h1>
+
+    <!-- Sub Tagline -->
+    <h2 class="text-2xl sm:text-4xl font-light text-neutral-300 tracking-tight mb-8 animate-hero-tagline">
+      Tech. Talk. Triumph.
+    </h2>
+
+    <!-- Event Dates, Prize Pool & Live Offer Ends In Pills -->
+    <div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-8 text-xs sm:text-sm text-neutral-300 animate-hero-cta">
+      <div class="px-4 py-2 rounded-full bg-neutral-900 border border-neutral-800 flex items-center gap-2">
+        <i data-lucide="calendar" class="w-4 h-4 text-neutral-400"></i>
+        <span>Nov 13 – 14, 2026</span>
+      </div>
+      <div class="px-4 py-2 rounded-full bg-neutral-900 border border-neutral-800 flex items-center gap-2">
+        <i data-lucide="trophy" class="w-4 h-4 text-neutral-400"></i>
+        <span>₹15,000 Prize Pool</span>
+      </div>
+      <!-- Interactive Early Bird Offer Ends In Pill -->
+      <button id="hero-offer-pill" data-open-register type="button" class="group px-4 py-2 rounded-full bg-neutral-900/90 border border-emerald-500/40 hover:border-emerald-400 flex items-center gap-2 sm:gap-2.5 transition-all duration-300 shadow-[0_0_16px_rgba(16,185,129,0.12)] hover:shadow-[0_0_22px_rgba(16,185,129,0.25)] hover:scale-[1.02] cursor-pointer" title="Click to register at Early Bird price">
+        <span class="flex h-2 w-2 relative">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="text-emerald-400 font-semibold">Early Bird Ends:</span>
+        <span id="hero-offer-pill-timer" class="text-white font-mono font-bold tracking-tight">--d --h --m --s</span>
+        <span class="flex items-center gap-1.5 pl-1.5 border-l border-neutral-800">
+          <span class="text-neutral-500 line-through text-xs font-mono">₹359</span>
+          <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-bold">₹299</span>
+        </span>
+      </button>
+    </div>
+
+    <!-- Clean Countdown Timer -->
+    <div class="p-6 rounded-2xl apple-card w-full max-w-lg">
+      <div class="text-[11px] font-mono tracking-widest text-neutral-500 uppercase mb-4">
+        Conclave Starts In
+      </div>
+      <div class="grid grid-cols-4 gap-2 text-center font-mono">
+        <div class="p-2">
+          <span id="cd-days" class="block text-2xl sm:text-3xl font-bold text-white">00</span>
+          <span class="text-[10px] text-neutral-500 uppercase">Days</span>
+        </div>
+        <div class="p-2">
+          <span id="cd-hours" class="block text-2xl sm:text-3xl font-bold text-white">00</span>
+          <span class="text-[10px] text-neutral-500 uppercase">Hours</span>
+        </div>
+        <div class="p-2">
+          <span id="cd-mins" class="block text-2xl sm:text-3xl font-bold text-white">00</span>
+          <span class="text-[10px] text-neutral-500 uppercase">Mins</span>
+        </div>
+        <div class="p-2">
+          <span id="cd-secs" class="block text-2xl sm:text-3xl font-bold text-white">00</span>
+          <span class="text-[10px] text-neutral-500 uppercase">Secs</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 4. ABOUT ELOQVENT (Shifted first as requested)                             -->
+  <!-- ========================================================================= -->
+  <section id="about" class="py-24 px-6 max-w-5xl mx-auto border-t border-neutral-900">
+    <div class="mb-12">
+      <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">Origins & Mission</p>
+      <h2 class="text-3xl sm:text-5xl font-bold text-white tracking-tight mb-4">
+        What is ELOQVENT?
+      </h2>
+      <p class="text-neutral-400 italic text-base sm:text-lg leading-relaxed mb-6">
+        Where bold voices meet bold ideas.
+      </p>
+      <p class="text-neutral-300 text-base sm:text-lg leading-relaxed mb-6">
+        ELOQVENT 2K26 is a two-day multidisciplinary platform that brings together communication, critical thinking, innovation, and entrepreneurship. It creates a space for participants to express perspectives, explore challenges, and approach problems with fresh thinking.
+      </p>
+      <p class="text-neutral-400 text-sm sm:text-base leading-relaxed mb-8">
+        Through Elocution and Root Riddle, participants strengthen their communication skills while exploring human-centred problem-solving and solution development. From expressing a thought to uncovering the root of a problem, ELOQVENT encourages participants to think deeper, create smarter, and make meaningful impact.
+      </p>
+      <!-- Key Stats Bar -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 rounded-2xl apple-card">
+        <div>
+          <span class="block text-2xl sm:text-3xl font-bold text-white font-mono">500+</span>
+          <span class="text-xs text-neutral-400">Total Participants</span>
+        </div>
+        <div>
+          <span class="block text-2xl sm:text-3xl font-bold text-white font-mono">40+</span>
+          <span class="text-xs text-neutral-400">Institutions</span>
+        </div>
+        <div>
+          <span class="block text-2xl sm:text-3xl font-bold text-white font-mono">3rd</span>
+          <span class="text-xs text-neutral-400">Consecutive Edition</span>
+        </div>
+        <div>
+          <span class="block text-2xl sm:text-3xl font-bold text-white font-mono">₹15,000</span>
+          <span class="text-xs text-neutral-400">Prize Pool</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 5. WHAT YOU WILL GAIN                                                  -->
+  <!-- ========================================================================= -->
+  <section id="experience" class="py-24 px-6 max-w-5xl mx-auto border-t border-neutral-900">
+    <div class="text-center mb-14">
+      <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">Participant Takeaways</p>
+      <h2 class="text-3xl sm:text-5xl font-bold text-white tracking-tight mb-4">
+        What You Will Gain
+      </h2>
+      <p class="text-neutral-400 text-sm sm:text-base max-w-lg mx-auto">
+        Practical skills to carry into the classroom, workplace, and community.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-5">
+      <div class="apple-card p-6 lg:col-span-2">
+        <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white mb-4">
+          <i data-lucide="mic" class="w-5 h-5"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">Confident Communication</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed">
+          Learn to express your ideas clearly and engage audience through JAM sessions, debates, and storytelling.
+        </p>
+      </div>
+
+      <div class="apple-card p-6 lg:col-span-2">
+        <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white mb-4">
+          <i data-lucide="lightbulb" class="w-5 h-5"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">Structured Thinking</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed">
+          Turn big, messy challenges into simple game plans whether you're tackling a tough project, prepping for exams, or nailing an interview.
+        </p>
+      </div>
+
+      <div class="apple-card p-6 lg:col-span-2">
+        <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white mb-4">
+          <i data-lucide="puzzle" class="w-5 h-5"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">Real-World Problem Solving</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed">
+          Go from empathy research to root cause analysis and turn real community challenges into practical solutions.
+        </p>
+      </div>
+
+      <div class="apple-card p-6 lg:col-span-2 lg:col-start-2">
+        <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white mb-4">
+          <i data-lucide="megaphone" class="w-5 h-5"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">Pitch-Ready Skills</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed">
+          Learn to shape an idea into a value proposition and a business model that convinces an expert panel.
+        </p>
+      </div>
+
+      <div class="apple-card p-6 lg:col-span-2 lg:col-start-4">
+        <div class="w-10 h-10 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-white mb-4">
+          <i data-lucide="message-square" class="w-5 h-5"></i>
+        </div>
+        <h3 class="text-lg font-bold text-white mb-2">Expert Feedback</h3>
+        <p class="text-sm text-neutral-400 leading-relaxed">
+          Get clear, actionable feedback from judges on your delivery and ideas, so you know exactly what to improve before your next interview or presentation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 6. TRACKS SECTION (Shifted before Photo Gallery, Blueprint button removed)  -->
+  <!-- ========================================================================= -->
+  <section id="tracks" class="py-24 px-6 max-w-5xl mx-auto border-t border-neutral-900">
+    <!-- Section Header -->
+    <div class="text-center mb-10">
+      <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">Two Specialized Arenas</p>
+      <h2 class="text-3xl sm:text-5xl font-bold text-white tracking-tight mb-4">
+        Choose Your Track
+      </h2>
+      <p class="text-neutral-400 text-sm sm:text-base max-w-xl mx-auto">
+        Switch between the two specialized tracks below to explore and register.
+      </p>
+    </div>
+
+    <!-- Apple-Style Segmented Pill Switcher -->
+    <div class="flex items-center justify-center mb-10">
+      <div class="apple-pill-container">
+        <button id="btn-tab-elocution" class="apple-pill-btn active">
+          01. Elocution
+        </button>
+        <button id="btn-tab-root-riddle" class="apple-pill-btn">
+          02. Root Riddle
+        </button>
+      </div>
+    </div>
+
+    <!-- Carousel Cards Container -->
+    <div class="relative">
+
+      <!-- ================= TRACK 1: ELOCUTION ================= -->
+      <div id="track-card-elocution" class="track-card active-card">
+        <div class="apple-card p-8 sm:p-12">
+          <div class="flex items-center justify-between gap-4 mb-4">
+            <span class="text-xs font-mono font-medium px-2.5 py-1 rounded-full bg-neutral-800 text-neutral-300">
+              Track 01
+            </span>
+            <span class="text-xs text-neutral-400">Individual (Solo)</span>
+          </div>
+
+          <h3 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-2">
+            Elocution
+          </h3>
+          <p class="text-neutral-400 font-medium text-base mb-6">
+            JAM Sessions. Debates. Storytelling.
+          </p>
+
+          <p class="text-neutral-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl">
+            Have great ideas but don't know how to approach presenting them?<br><br>Elocution turns public speaking into a fine craft teaching you how to command attention, master delivery tone, and make your words resonate with any audience.
+          </p>
+
+          <!-- Feature Bullets (Apple Style) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10 max-w-2xl">
+            <div class="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-sm text-neutral-300 flex items-center gap-3">
+              <i data-lucide="mic" class="w-4 h-4 text-neutral-400"></i>
+              <span>JAM Sessions & Thematic Debates</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-sm text-neutral-300 flex items-center gap-3">
+              <i data-lucide="presentation" class="w-4 h-4 text-neutral-400"></i>
+              <span>Storytelling & Narrative Building</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-sm text-neutral-300 flex items-center gap-3">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-neutral-400"></i>
+              <span>Structured Debate & Delivery Drills</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-sm text-neutral-300 flex items-center gap-3">
+              <i data-lucide="award" class="w-4 h-4 text-neutral-400"></i>
+              <span>Final Assessment & Recognition</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <button data-open-register data-track="Elocution" class="px-8 py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-sm transition-all shadow-md">
+              Register for Elocution
+            </button>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-emerald-500/30 text-xs">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-emerald-400 font-medium">Early Bird: ₹299</span>
+              <span class="text-neutral-500 line-through text-[11px]">₹359</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= TRACK 2: ROOT RIDDLE ================= -->
+      <div id="track-card-root-riddle" class="track-card hidden-card">
+        <div class="apple-card p-8 sm:p-12">
+          <div class="flex items-center justify-between gap-4 mb-4">
+            <span class="text-xs font-mono font-medium px-2.5 py-1 rounded-full bg-neutral-800 text-neutral-300">
+              Track 02
+            </span>
+            <span class="text-xs text-neutral-400">Individual Participation</span>
+          </div>
+
+          <h3 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-2">
+            Root Riddle
+          </h3>
+          <p class="text-neutral-400 font-medium text-base mb-6">
+            Empathy. Root Cause. Pitch-Ready Projects.
+          </p>
+
+          <p class="text-neutral-300 text-sm sm:text-base leading-relaxed mb-8 max-w-2xl">
+            Want to build a project but don't know how to approach it?<br><br>Root Riddle takes you through the entire journey of taking an idea from scratch and turning it into a pitch-ready, practical project.
+          </p>
+
+          <!-- Feature Bullets (Apple Style) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10 max-w-2xl">
+            <div class="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-sm text-neutral-300 flex items-center gap-3">
+              <i data-lucide="git-branch" class="w-4 h-4 text-neutral-400"></i>
+              <span>Empathy Mapping & Field Research</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-sm text-neutral-300 flex items-center gap-3">
+              <i data-lucide="cpu" class="w-4 h-4 text-neutral-400"></i>
+              <span>Root Cause & Problem Statement Building</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-sm text-neutral-300 flex items-center gap-3">
+              <i data-lucide="compass" class="w-4 h-4 text-neutral-400"></i>
+              <span>Prototype, Value Proposition & Business Model</span>
+            </div>
+            <div class="p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-sm text-neutral-300 flex items-center gap-3">
+              <i data-lucide="award" class="w-4 h-4 text-neutral-400"></i>
+              <span>Expert Panel Pitch & Final Showcase</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <button data-open-register data-track="Root Riddle" class="px-8 py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-sm transition-all shadow-md">
+              Register for Root Riddle
+            </button>
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-emerald-500/30 text-xs">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-emerald-400 font-medium">Early Bird: ₹299</span>
+              <span class="text-neutral-500 line-through text-[11px]">₹359</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Carousel Controls -->
+    <div class="flex items-center justify-center gap-3 mt-6">
+      <button id="track-prev-btn" class="w-9 h-9 rounded-full bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white flex items-center justify-center border border-neutral-800 transition-all">
+        <i data-lucide="chevron-left" class="w-4 h-4"></i>
+      </button>
+      <span class="text-xs text-neutral-500 font-mono">Toggle Tracks</span>
+      <button id="track-next-btn" class="w-9 h-9 rounded-full bg-neutral-900 hover:bg-neutral-800 text-neutral-300 hover:text-white flex items-center justify-center border border-neutral-800 transition-all">
+        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+      </button>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 7. PREVIOUS EDITIONS GALLERY (3rd Edition Legacy)                         -->
+  <!-- ========================================================================= -->
+  <section id="gallery" class="py-24 border-t border-neutral-900 overflow-hidden">
+    <div class="max-w-5xl mx-auto px-6 mb-10">
+      <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">Past Editions (1.0 & 2.0)</p>
+      <h2 class="text-3xl sm:text-5xl font-bold text-white tracking-tight mb-3">
+        Photo Gallery
+      </h2>
+      <p class="text-neutral-400 text-sm sm:text-base">
+        Moments captured during ELOQVENT Edition 1.0 (2024) and Edition 2.0 (2025). Hover over any photo to pause.
+      </p>
+    </div>
+
+    <!-- Continuously Moving Photo Carousels (Dual Alternating Tracks) -->
+    <div class="space-y-4">
+      <!-- Carousel Track 1 (Scrolling Left) -->
+      <div class="marquee-wrapper">
+        <div class="marquee-track marquee-track-left">
+          <!-- Primary Set -->
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/dsc03936.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/dsc03951.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/dsc03960.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/dsc03983.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/_dsc8531.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/_dsc8726.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/_dsc8736.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/_dsc8753.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/_dsc8761.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of_dsc05191.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7091.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7145.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+
+          <!-- Seamless Infinite Loop Duplicate Set -->
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/dsc03936.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/dsc03951.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/dsc03960.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/dsc03983.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/_dsc8531.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/_dsc8726.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/_dsc8736.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/_dsc8753.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/_dsc8761.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of_dsc05191.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7091.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7145.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Track 2 (Scrolling Right) -->
+      <div class="marquee-wrapper">
+        <div class="marquee-track marquee-track-right">
+          <!-- Primary Set -->
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7164.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7175.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7181.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7224.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7235.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7434.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7554.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/img_3431.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/img_3485.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/img_3506.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/img_3548.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+
+          <!-- Seamless Infinite Loop Duplicate Set -->
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7164.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7175.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7181.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7224.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7235.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7434.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/copy_of__dsc7554.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/img_3431.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/img_3485.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/img_3506.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+          <div class="gallery-carousel-item group">
+            <div class="aspect-[4/3] w-full overflow-hidden">
+              <img src="photos/web/img_3548.jpg" alt="ELOQVENT Moment">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 8. ORGANIZERS / COORDINATORS (2 People - As Requested)                    -->
+  <!-- ========================================================================= -->
+  <section id="coordinators" class="py-24 px-6 max-w-5xl mx-auto border-t border-neutral-900">
+    <div class="text-center mb-12">
+      <p class="text-xs uppercase tracking-widest text-neutral-500 mb-2">Point of Contact</p>
+      <h2 class="text-3xl sm:text-5xl font-bold text-white tracking-tight mb-3">
+        For More Info Contact
+      </h2>
+      <p class="text-neutral-400 text-sm sm:text-base max-w-md mx-auto">
+        Feel free to reach out directly to our coordinators for any questions regarding registration, tracks, or guidelines.
+      </p>
+    </div>
+
+    <!-- 2 Coordinator Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      
+      <!-- Coordinator 1: Dinesh Kumar -->
+      <div class="apple-card p-6">
+        <h3 class="text-xl font-bold text-white mb-6">Dinesh Kumar</h3>
+
+        <div class="space-y-2.5 text-xs sm:text-sm mb-6">
+          <a href="tel:8522901884" class="flex items-center gap-3 p-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-300 transition-colors">
+            <i data-lucide="phone" class="w-4 h-4 text-neutral-400"></i>
+            <span class="font-mono text-white font-medium">+91 85229 01884</span>
+          </a>
+        </div>
+
+        <a href="https://wa.me/918522901884?text=Hi%20Dinesh,%20I%20have%20a%20query%20regarding%20ELOQVENT%202K26" target="_blank" rel="noopener noreferrer" class="block w-full py-2.5 text-center rounded-xl bg-white hover:bg-neutral-200 text-black font-semibold text-xs transition-colors">
+          Chat on WhatsApp
+        </a>
+      </div>
+
+      <!-- Coordinator 2: Bhavith -->
+      <div class="apple-card p-6">
+        <h3 class="text-xl font-bold text-white mb-6">Bhavith</h3>
+
+        <div class="space-y-2.5 text-xs sm:text-sm mb-6">
+          <a href="tel:7780106774" class="flex items-center gap-3 p-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-300 transition-colors">
+            <i data-lucide="phone" class="w-4 h-4 text-neutral-400"></i>
+            <span class="font-mono text-white font-medium">+91 77801 06774</span>
+          </a>
+        </div>
+
+        <a href="https://wa.me/917780106774?text=Hi%20Bhavith,%20I%20have%20a%20query%20regarding%20ELOQVENT%202K26" target="_blank" rel="noopener noreferrer" class="block w-full py-2.5 text-center rounded-xl bg-white hover:bg-neutral-200 text-black font-semibold text-xs transition-colors">
+          Chat on WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================================= -->
+  <!-- 9. FOOTER SECTION                                                         -->
+  <!-- ========================================================================= -->
+  <footer class="border-t border-neutral-900 py-12 px-6">
+    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-neutral-500">
+      <div>
+        <p class="text-neutral-400 font-semibold mb-1">ELOQVENT 2K26 — 3rd Edition</p>
+        <p>© 2026 EWB-IUCEE-IEEEE-MLRIT. All rights reserved.</p>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <a href="#hero" class="hover:text-neutral-300 transition-colors">Top</a>
+        <a href="#about" class="hover:text-neutral-300 transition-colors">About</a>
+        <a href="#experience" class="hover:text-neutral-300 transition-colors">Experience</a>
+        <a href="#tracks" class="hover:text-neutral-300 transition-colors">Tracks</a>
+        <a href="#coordinators" class="hover:text-neutral-300 transition-colors">Coordinators</a>
+      </div>
+
+      <button data-open-register class="px-4 py-2 rounded-full bg-white text-black font-semibold hover:bg-neutral-200 transition-all">
+        Register Now
+      </button>
+    </div>
+  </footer>
+
+
+  <!-- ========================================================================= -->
+  <!-- 10. REGISTRATION MODAL                                                   -->
+  <!-- ========================================================================= -->
+  <div id="registration-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 hidden">
+    <div id="reg-modal-backdrop" class="absolute inset-0 modal-backdrop"></div>
+    <div class="relative z-10 w-full max-w-2xl max-h-[92vh] overflow-y-auto rounded-3xl bg-[#111113] border border-neutral-800 p-6 sm:p-8 shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="registration-title">
+      <button id="reg-modal-close" type="button" aria-label="Close registration" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-neutral-900 hover:bg-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center transition-colors">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+
+      <div class="mb-6 pr-10">
+        <span class="text-xs font-mono text-neutral-400 uppercase">Registration Portal</span>
+        <h3 id="registration-title" class="text-2xl font-bold text-white mt-1">Register for ELOQVENT 2K26</h3>
+        <p class="text-xs text-neutral-400 mt-1">13-14 November 2026 · 9:30 AM-4:00 PM IST</p>
+      </div>
+
+      <form id="registration-form" class="space-y-6">
+        <p id="reg-form-error" class="hidden rounded-xl border border-red-900 bg-red-950/50 px-4 py-3 text-sm text-red-200" role="alert" tabindex="-1"></p>
+        <div class="sr-only" aria-hidden="true">
+          <label for="reg-website-check">Leave this field empty</label>
+          <input id="reg-website-check" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <section class="space-y-3">
+          <div class="text-xs font-mono uppercase tracking-wider text-neutral-500">01 · Event</div>
+          <div>
+            <label class="block text-xs text-neutral-300 font-medium mb-1" for="reg-track-select">Registering For *</label>
+            <select id="reg-track-select" required class="w-full apple-input">
+              <option value="" selected disabled>Select an event</option>
+              <option value="Root Riddle">Root Riddle</option>
+              <option value="Elocution">Elocution</option>
+            </select>
+          </div>
+        </section>
+
+        <section id="personal-details-section" class="space-y-5 hidden">
+          <div class="text-xs font-mono uppercase tracking-wider text-neutral-500">02 · Personal Details</div>
+          <div class="rounded-2xl border border-neutral-800 bg-neutral-950 p-4 sm:p-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs text-neutral-300 font-medium mb-1" for="reg-name">Full Name *</label>
+                <input id="reg-name" type="text" required maxlength="120" autocomplete="name" placeholder="Your full name" class="w-full apple-input">
+              </div>
+              <div>
+                <label class="block text-xs text-neutral-300 font-medium mb-1" for="reg-email">Email ID *</label>
+                <input id="reg-email" type="email" required maxlength="254" autocomplete="email" placeholder="you@example.com" class="w-full apple-input">
+              </div>
+              <div>
+                <label class="block text-xs text-neutral-300 font-medium mb-1" for="reg-mobile">Mobile Number *</label>
+                <input id="reg-mobile" type="tel" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter a 10-digit mobile number" autocomplete="tel" placeholder="10-digit mobile number" class="w-full apple-input">
+              </div>
+              <div>
+                <label class="block text-xs text-neutral-300 font-medium mb-1" for="reg-college">College Full Name *</label>
+                <input id="reg-college" type="text" required maxlength="180" autocomplete="organization" placeholder="Full college / university name" class="w-full apple-input">
+              </div>
+              <div>
+                <label class="block text-xs text-neutral-300 font-medium mb-1" for="reg-roll-number">Roll Number *</label>
+                <input id="reg-roll-number" type="text" required maxlength="60" placeholder="College roll number" class="w-full apple-input">
+              </div>
+              <div>
+                <label class="block text-xs text-neutral-300 font-medium mb-1" for="reg-year">Year *</label>
+                <select id="reg-year" required class="w-full apple-input">
+                  <option value="" selected disabled>Select year</option>
+                  <option>1st Year</option><option>2nd Year</option><option>3rd Year</option><option>4th Year</option><option>Other</option>
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs text-neutral-300 font-medium mb-1" for="reg-branch">Branch *</label>
+                <select id="reg-branch" required class="w-full apple-input">
+                  <option value="" selected disabled>Select branch</option>
+                  <option>CSE</option><option>IT</option><option>ECE</option><option>EEE</option><option>Mechanical</option><option>Civil</option><option>Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="payment-section" class="space-y-4 hidden">
+          <div class="text-xs font-mono uppercase tracking-wider text-neutral-500">03 · Payment</div>
+
+          <div class="rounded-2xl border border-neutral-800 bg-neutral-950 p-4">
+            <div class="grid grid-cols-1 sm:grid-cols-[13rem_1fr] gap-5 items-center">
+              <div class="shrink-0 rounded-xl bg-white p-2 w-52 h-52 flex items-center justify-center overflow-hidden">
+                <img id="payment-qr" src="photos/payment-qr.jpeg" alt="ELOQVENT 2K26 payment QR code" class="w-full h-full object-contain">
+                <div id="payment-qr-fallback" class="hidden text-center text-neutral-500 text-[11px] leading-4">Payment QR will appear here once the organizer adds it.</div>
+              </div>
+              <div class="min-w-0 text-center sm:text-left">
+                <p class="text-white font-semibold">Scan & Pay</p>
+                <p class="text-xs text-neutral-400 mt-1">Pay the exact amount shown below. Your payment will be checked by an organizer.</p>
+                <dl class="grid grid-cols-2 gap-x-4 gap-y-2 mt-4 text-left text-xs">
+                  <dt class="text-neutral-500">Category</dt><dd id="reg-fee-category" class="text-right text-neutral-200">Early Bird</dd>
+                  <dt class="text-neutral-500">Registration Fee</dt><dd id="reg-fee-per-person" class="text-right text-neutral-200">₹299</dd>
+                </dl>
+                <div class="mt-4 border-t border-neutral-800 pt-3">
+                  <p class="text-[10px] font-mono uppercase tracking-wider text-neutral-500">Please pay exactly</p>
+                  <p id="reg-total-amount" class="text-3xl font-bold text-white mt-1" aria-live="polite">₹299</p>
+                </div>
+                <p class="text-[11px] text-neutral-500 mt-3">After paying, enter your UPI Transaction ID / UTR and upload the screenshot.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-neutral-300 font-medium mb-1" for="reg-reference-id">UPI Transaction ID / UTR *</label>
+            <input type="text" id="reg-reference-id" required minlength="6" maxlength="35" pattern="[A-Za-z0-9\-]{6,35}" autocomplete="off" inputmode="text" placeholder="Enter the payment reference / UTR" class="w-full apple-input">
+          </div>
+
+          <div>
+            <label class="block text-xs text-neutral-300 font-medium mb-1" for="reg-payment-screenshot">Payment Screenshot *</label>
+            <input type="file" id="reg-payment-screenshot" required accept="image/png,image/jpeg,image/webp" class="w-full apple-input file:mr-3 file:rounded-lg file:border-0 file:bg-white file:px-3 file:py-2 file:text-xs file:font-semibold file:text-black">
+            <p class="text-[11px] text-neutral-500 mt-1">PNG, JPG or WebP · Maximum 5 MB</p>
+            <div id="payment-preview-wrap" class="hidden mt-3 rounded-xl border border-neutral-800 bg-neutral-950 p-2">
+              <img id="payment-preview" alt="Payment screenshot preview" class="max-h-52 mx-auto rounded-lg object-contain">
+            </div>
+          </div>
+        </section>
+
+        <button type="submit" id="reg-submit-btn" disabled class="w-full py-3 rounded-xl bg-white hover:bg-neutral-200 disabled:opacity-40 disabled:cursor-not-allowed text-black font-semibold text-sm transition-colors">
+          Submit Registration
+        </button>
+
+        <p class="text-[11px] text-center text-neutral-500">Your details and payment proof are sent securely for organizer review. Submission does not confirm payment.</p>
+      </form>
+
+      <div id="reg-success-state" class="hidden text-center py-8">
+        <div class="w-14 h-14 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center text-white mx-auto mb-4">
+          <i data-lucide="check" class="w-7 h-7"></i>
+        </div>
+        <h4 class="text-xl font-bold text-white mb-2">Registration Successful!</h4>
+        <p class="text-xs text-neutral-400 max-w-sm mx-auto mb-4">Your registration was submitted. Payment is awaiting organizer verification; this is not a payment confirmation.</p>
+        <div class="rounded-2xl border border-neutral-800 bg-neutral-950 p-4 max-w-sm mx-auto mb-6">
+          <p class="text-[10px] uppercase tracking-wider text-neutral-500">Registration ID</p>
+          <p id="reg-success-id" class="text-xl font-mono font-bold text-white mt-1"></p>
+          <dl class="grid grid-cols-2 gap-2 text-left mt-4 text-xs">
+            <dt class="text-neutral-500">Event</dt><dd id="reg-success-event" class="text-right text-neutral-200"></dd>
+            <dt class="text-neutral-500">Registration Fee</dt><dd id="reg-success-amount" class="text-right text-neutral-200"></dd>
+            <dt class="text-neutral-500">Payment status</dt><dd class="text-right text-amber-300">Pending Verification</dd>
+          </dl>
+          <p class="text-[11px] text-neutral-500 mt-2">Save this ID for future reference.</p>
+        </div>
+        <button type="button" onclick="window.closeRegistrationModal()" class="px-6 py-2 rounded-full bg-neutral-900 text-white text-xs hover:bg-neutral-800 transition-colors">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/config.js"></script>
+  <script src="js/tracks-carousel.js"></script>
+  <script src="js/registration.js"></script>
+  <script src="js/animations.js"></script>
+</body>
+</html>
