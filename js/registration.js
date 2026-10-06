@@ -5,11 +5,9 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   initRegistrationSystem();
-  updateLiveCount();
   if (window.lucide) window.lucide.createIcons();
 });
 
-let liveCount = 148;
 let compressedScreenshotBase64 = null;
 let compressionPromise = null;
 
@@ -197,8 +195,6 @@ function initRegistrationSystem() {
         throw new Error(result?.message || "The registration could not be saved.");
       }
 
-      liveCount++;
-      renderCounts(liveCount);
       document.getElementById("reg-success-id").textContent = result.registrationId;
       document.getElementById("reg-success-event").textContent = event;
       document.getElementById("reg-success-amount").textContent = `₹${result.expectedAmount}`;
@@ -385,14 +381,3 @@ async function submitToAppsScriptFast(url, payload) {
   }
 }
 
-function updateLiveCount() {
-  const base = window.ELOQVENT_CONFIG?.sheets?.baseRegistrationCount || 148;
-  liveCount = base;
-  renderCounts(liveCount);
-}
-
-function renderCounts(count) {
-  document.querySelectorAll(".live-reg-count").forEach((el) => {
-    el.textContent = `${count}`;
-  });
-}

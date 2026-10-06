@@ -29,8 +29,7 @@ window.ELOQVENT_CONFIG = {
   sheets: {
     // Paste the deployed Apps Script /exec URL here. No local demo submission is used.
     webAppUrl: "https://script.google.com/macros/s/AKfycbx_u_fL8A01GCy3f0tuZuUUpXwvrp0uwvZmIwbVta6NRgrqLM_HoUMIcdOpWC-Tu-v-vw/exec",
-    paymentQrImage: "photos/payment-qr.jpeg",
-    baseRegistrationCount: 148
+    paymentQrImage: "photos/payment-qr.jpeg"
   },
 
   // All times use India Standard Time (UTC+05:30). The backend enforces this cutoff.

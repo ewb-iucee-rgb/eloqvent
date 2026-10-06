@@ -17,7 +17,7 @@ const RE_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RE_MOBILE = /^\d{10}$/;
 const VALID_EVENTS = new Set(["Root Riddle", "Elocution"]);
 const VALID_YEARS = new Set(["1st Year", "2nd Year", "3rd Year", "4th Year", "Other"]);
-const VALID_BRANCHES = new Set(["CSE", "IT", "ECE", "EEE", "Mechanical", "Civil", "Other"]);
+const VALID_BRANCHES = new Set(["CSM", "CSD", "IT", "CS-IT", "CSE", "ECE", "EEE", "Mechanical", "Civil", "Other"]);
 
 const HEADERS = [
   "Registration ID", "Timestamp", "Event", "Registration Fee", "Expected Amount",
