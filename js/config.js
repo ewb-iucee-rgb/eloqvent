@@ -36,7 +36,7 @@ window.ELOQVENT_CONFIG = {
   pricing: {
     earlyBirdPerPerson: 299,
     regularPerPerson: 359,
-    earlyBirdDeadline: "2026-10-13T00:00:00+05:30"
+    earlyBirdDeadline: "2026-10-29T23:59:59+05:30"
   },
 
   // Two Student Coordinators / Lead Organizers (as requested)

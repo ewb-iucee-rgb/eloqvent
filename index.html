@@ -100,9 +100,9 @@
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
           <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
         </span>
-        <span class="text-emerald-400 font-semibold">Early Bird Ends:</span>
+        <span class="text-emerald-400 font-semibold" id="hero-offer-pill-title">Early Bird Ends:</span>
         <span id="hero-offer-pill-timer" class="text-white font-mono font-bold tracking-tight">--d --h --m --s</span>
-        <span class="flex items-center gap-1.5 pl-1.5 border-l border-neutral-800">
+        <span id="hero-offer-pill-badge" class="flex items-center gap-1.5 pl-1.5 border-l border-neutral-800">
           <span class="text-neutral-500 line-through text-xs font-mono">₹359</span>
           <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-mono font-bold">₹299</span>
         </span>
@@ -320,7 +320,7 @@
             <button data-open-register data-track="Elocution" class="px-8 py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-sm transition-all shadow-md">
               Register for Elocution
             </button>
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-emerald-500/30 text-xs">
+            <div class="track-pricing-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-emerald-500/30 text-xs">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               <span class="text-emerald-400 font-medium">Early Bird: ₹299</span>
               <span class="text-neutral-500 line-through text-[11px]">₹359</span>
@@ -374,7 +374,7 @@
             <button data-open-register data-track="Root Riddle" class="px-8 py-3.5 rounded-full bg-white hover:bg-neutral-200 text-black font-semibold text-sm transition-all shadow-md">
               Register for Root Riddle
             </button>
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-emerald-500/30 text-xs">
+            <div class="track-pricing-badge inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-neutral-900 border border-emerald-500/30 text-xs">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               <span class="text-emerald-400 font-medium">Early Bird: ₹299</span>
               <span class="text-neutral-500 line-through text-[11px]">₹359</span>
@@ -873,7 +873,13 @@
         <p class="text-xs text-neutral-400 max-w-sm mx-auto mb-4">Your registration was submitted. Payment is awaiting organizer verification; this is not a payment confirmation.</p>
         <div class="rounded-2xl border border-neutral-800 bg-neutral-950 p-4 max-w-sm mx-auto mb-6">
           <p class="text-[10px] uppercase tracking-wider text-neutral-500">Registration ID</p>
-          <p id="reg-success-id" class="text-xl font-mono font-bold text-white mt-1"></p>
+          <div class="flex items-center justify-center gap-2 mt-1">
+            <p id="reg-success-id" class="text-xl font-mono font-bold text-white"></p>
+            <button id="reg-copy-id-btn" type="button" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-700 text-xs font-mono transition cursor-pointer" title="Copy Registration ID">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+              <span id="reg-copy-id-text">Copy</span>
+            </button>
+          </div>
           <dl class="grid grid-cols-2 gap-2 text-left mt-4 text-xs">
             <dt class="text-neutral-500">Event</dt><dd id="reg-success-event" class="text-right text-neutral-200"></dd>
             <dt class="text-neutral-500">Registration Fee</dt><dd id="reg-success-amount" class="text-right text-neutral-200"></dd>

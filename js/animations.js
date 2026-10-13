@@ -106,7 +106,7 @@ function initOfferTimer() {
   const pillTimer = document.getElementById("hero-offer-pill-timer");
   if (!pillTimer) return;
 
-  const deadlineStr = window.ELOQVENT_CONFIG?.pricing?.earlyBirdDeadline || "2026-10-13T00:00:00+05:30";
+  const deadlineStr = window.ELOQVENT_CONFIG?.pricing?.earlyBirdDeadline || "2026-10-29T23:59:59+05:30";
   const targetTime = new Date(deadlineStr).getTime();
 
   function update() {
@@ -114,7 +114,16 @@ function initOfferTimer() {
     const diff = targetTime - now;
 
     if (diff <= 0) {
-      pillTimer.textContent = "Expired";
+      const pillTitle = document.getElementById("hero-offer-pill-title");
+      const pillBadge = document.getElementById("hero-offer-pill-badge");
+      if (pillTitle) pillTitle.textContent = "Regular Registration:";
+      pillTimer.textContent = "Open";
+      if (pillBadge) {
+        pillBadge.innerHTML = '<span class="px-2 py-0.5 rounded-full bg-neutral-800 text-neutral-200 text-xs font-mono font-bold">₹359</span>';
+      }
+      document.querySelectorAll(".track-pricing-badge").forEach((el) => {
+        el.innerHTML = '<span class="text-neutral-300 font-medium">Standard Fee: ₹359</span>';
+      });
       return;
     }
 

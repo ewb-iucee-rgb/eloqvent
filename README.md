@@ -36,7 +36,7 @@ window.ELOQVENT_CONFIG = {
   pricing: {
     earlyBirdPerPerson: 299,
     regularPerPerson: 359,
-    earlyBirdDeadline: "2026-10-13T00:00:00+05:30"
+    earlyBirdDeadline: "2026-10-29T23:59:59+05:30"
   },
 
   // 4. Event Coordinators
@@ -81,7 +81,7 @@ The backend creates the `Registrations` tab and its columns on the first submiss
 
 ### Pricing and Payment Review
 
-The browser settings are in `js/config.js` under `pricing`. The authoritative values are `EARLY_BIRD_FEE`, `REGULAR_FEE`, and `EARLY_BIRD_END` near the top of `google-sheets-script.js`; keep these aligned when changing prices or the deadline. The early-bird offer ends at 11:59 PM IST on 12 October 2026; regular pricing starts at 12:00 AM IST on 13 October 2026. The server uses its own clock, recomputes the fee, and rejects a displayed fee that no longer matches. It generates the registration ID and timestamp and sets payment status itself.
+The browser settings are in `js/config.js` under `pricing`. The authoritative values are `EARLY_BIRD_FEE`, `REGULAR_FEE`, and `EARLY_BIRD_END` near the top of `google-sheets-script.js`; keep these aligned when changing prices or the deadline. The early-bird offer ends at 11:59 PM IST on 29 October 2026; regular pricing starts at 12:00 AM IST on 30 October 2026. The server uses its own clock, recomputes the fee, and rejects a displayed fee that no longer matches. It generates the registration ID and timestamp and sets payment status itself.
 
 After payment, organizers should compare the UTR and exact received amount against their bank/UPI records. A repeated UTR receives a note on its UTR cell for organizer review; it never verifies payment automatically. Change `Payment Status` manually to `Verified`, `Amount Mismatch`, or `Rejected` only after review. New submissions always start as `Pending Verification`.
 

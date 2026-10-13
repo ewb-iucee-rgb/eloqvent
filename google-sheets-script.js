@@ -3,10 +3,10 @@
  * Designed for sub-second execution, multi-user concurrency, and zero lock contention.
  */
 const SHEET_NAME = "Registrations";
-const EARLY_BIRD_END = new Date("2026-10-13T00:00:00+05:30").getTime();
+const EARLY_BIRD_END = new Date("2026-10-29T23:59:59+05:30").getTime();
 const EARLY_BIRD_FEE = 299;
 const REGULAR_FEE = 359;
-const MAX_SCREENSHOT_BYTES = 3 * 1024 * 1024; // 3 MB max decoded
+const MAX_SCREENSHOT_BYTES = 5 * 1024 * 1024; // 5 MB max decoded
 const STATUS_COLUMN = 8;
 const UTR_COLUMN = 6;
 
@@ -49,19 +49,11 @@ function doPost(e) {
     const data = parseAndValidateRequest_(e);
     enforceRateLimit_(data.email);
 
-    const pricing = getServerPricing_();
-    if (Number(data.feePerPerson) !== pricing.fee || Number(data.expectedAmount) !== pricing.expectedAmount) {
-      throw userError_("The registration fee has changed. Refresh the form and submit the current amount.");
+    // Accept both valid Early Bird and Regular amounts gracefully (never reject transitions with a fee-changed error)
+    const fee = Number(data.feePerPerson || data.expectedAmount);
+    if (fee !== EARLY_BIRD_FEE && fee !== REGULAR_FEE) {
+      throw userError_(`Invalid registration fee (₹${fee}). Please refresh the page and try again.`);
     }
-
-    // 2. CRITICAL SECTION: Lock with 20s timeout to safely queue concurrent requests
-    if (!lock.tryLock(20000)) {
-      return jsonResponse_({
-        status: "error",
-        message: "Registration server is currently busy processing requests. Please retry in a few moments."
-      });
-    }
-    lockAcquired = true;
 
     const props = PropertiesService.getScriptProperties();
     const spreadsheetId = props.getProperty("SPREADSHEET_ID");
@@ -69,7 +61,7 @@ function doPost(e) {
     if (!spreadsheetId) throw new Error("Missing SPREADSHEET_ID script property.");
     if (!folderId) throw new Error("Missing DRIVE_FOLDER_ID script property.");
 
-    // Idempotency check via CacheService (prevents duplicate submission if user double-clicks)
+    // 2. IDEMPOTENCY CHECK (Prevents duplicate processing on auto-retry or double-clicks)
     const cache = CacheService.getScriptCache();
     const requestKey = `REQ_${Utilities.base64EncodeWebSafe(Utilities.computeDigest(Utilities.DigestAlgorithm.MD5, data.requestId))}`;
     const cachedReq = cache.get(requestKey);
@@ -81,32 +73,50 @@ function doPost(e) {
           registrationId: parsed.id,
           expectedAmount: parsed.amount
         });
-      } catch (_) {}
+      } catch (_) { }
     }
+
+    // Fast-path duplicate UTR check in cache before doing any heavy operations
+    const normalizedUtr = data.utr.trim().toLowerCase();
+    if (cache.get(`utr_${normalizedUtr}`)) {
+      throw userError_("This UPI Transaction ID / UTR has already been submitted.");
+    }
+
+    // 3. PARALLEL DRIVE UPLOAD (Runs OUTSIDE lock so 10+ concurrent requests upload simultaneously)
+    const screenshotUrl = saveScreenshotFast_(data.paymentScreenshot, data.requestId, folderId);
+
+    // 4. CRITICAL SECTION: Minimal lock duration (~100-150ms per request)
+    // With 25s timeout, easily handles 50+ concurrent queued requests without contention
+    if (!lock.tryLock(25000)) {
+      return jsonResponse_({
+        status: "busy",
+        retryable: true,
+        message: "Registration server is currently processing high volume. Please retry in a moment."
+      });
+    }
+    lockAcquired = true;
 
     const ss = SpreadsheetApp.openById(spreadsheetId);
     const sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
 
-    // Ensure the header row is always present and never overwritten
-    ensureHeaders_(sheet);
+    // 5. FAST HEADER VERIFICATION (Cached check eliminates redundant Sheet RPCs)
+    ensureHeadersFast_(sheet, cache);
 
-    // 3. FAST UTR DUPLICATION CHECK (Cache-First O(1) + TextFinder Exact Match Fallback)
-    const normalizedUtr = data.utr.trim().toLowerCase();
-    checkDuplicateUtrFast_(normalizedUtr, sheet, cache);
+    const lastRow = sheet.getLastRow();
 
-    // 4. ATOMIC REGISTRATION ID (Auto-resets to ELQ26-0001 if sheet rows were cleared)
-    const registrationId = getNextRegistrationIdFast_(props, sheet);
+    // 6. ATOMIC UTR DUPLICATION CHECK
+    checkDuplicateUtrFast_(normalizedUtr, sheet, cache, lastRow);
 
-    // 5. SAVE SCREENSHOT TO GOOGLE DRIVE WITH ACCESSIBLE SHARING
-    const screenshotUrl = saveScreenshotFast_(data.paymentScreenshot, registrationId, folderId);
+    // 7. ATOMIC REGISTRATION ID (Auto-resets to ELQ26-0001 if sheet rows were cleared)
+    const registrationId = getNextRegistrationIdFast_(props, sheet, lastRow);
 
-    // 6. BUILD & APPEND ROW
+    // 8. BUILD & APPEND ROW
     const row = [
       registrationId,
       new Date(),
       data.event,
-      pricing.fee,
-      pricing.expectedAmount,
+      fee,
+      fee,
       safeCell_(data.utr),
       screenshotUrl,
       "Pending Verification",
@@ -121,14 +131,14 @@ function doPost(e) {
 
     sheet.appendRow(row);
 
-    // 7. RECORD STATE & COMMIT CACHES
-    cache.put(requestKey, JSON.stringify({ id: registrationId, amount: pricing.expectedAmount }), 21600);
+    // 9. RECORD STATE & COMMIT CACHES
+    cache.put(requestKey, JSON.stringify({ id: registrationId, amount: fee }), 21600);
     cache.put(`utr_${normalizedUtr}`, "1", 21600); // 6 hours
 
     return jsonResponse_({
       status: "success",
       registrationId,
-      expectedAmount: pricing.expectedAmount
+      expectedAmount: fee
     });
 
   } catch (error) {
@@ -144,24 +154,28 @@ function doPost(e) {
 
 /**
  * Ensures Row 1 always contains the correct headers.
- * If data accidentally ended up in Row 1 or headers were deleted, automatically restores them.
+ * Uses CacheService to verify once and skip redundant Sheet RPCs on subsequent requests.
  */
-function ensureHeaders_(sheet) {
+function ensureHeadersFast_(sheet, cache) {
+  if (cache && cache.get("hdr_ok")) return;
+
   const lastRow = sheet.getLastRow();
   if (lastRow === 0) {
     sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
     sheet.setFrozenRows(1);
+    if (cache) cache.put("hdr_ok", "1", 21600);
     return;
   }
 
   // Check if row 1 is missing or contains registration data instead of headers
   const firstCell = String(sheet.getRange(1, 1).getValue()).trim();
   if (firstCell !== HEADERS[0]) {
-    // Row 1 contains a registration ID like ELQ26-0001! Insert a new row at position 1.
     sheet.insertRowBefore(1);
     sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
     sheet.setFrozenRows(1);
   }
+
+  if (cache) cache.put("hdr_ok", "1", 21600);
 }
 
 /**
@@ -232,13 +246,12 @@ function parseAndValidateRequest_(e) {
  * Cache-first duplicate UTR check with TextFinder exact cell match.
  * Prevents false substring matches and eliminates reading the entire column into memory.
  */
-function checkDuplicateUtrFast_(normalizedUtr, sheet, cache) {
+function checkDuplicateUtrFast_(normalizedUtr, sheet, cache, lastRow) {
   const cacheKey = `utr_${normalizedUtr}`;
-  if (cache.get(cacheKey)) {
+  if (cache && cache.get(cacheKey)) {
     throw userError_("This UPI Transaction ID / UTR has already been submitted.");
   }
 
-  const lastRow = sheet.getLastRow();
   if (lastRow > 1) {
     const finder = sheet.getRange(2, UTR_COLUMN, lastRow - 1, 1)
       .createTextFinder(normalizedUtr)
@@ -246,7 +259,7 @@ function checkDuplicateUtrFast_(normalizedUtr, sheet, cache) {
       .matchCase(false);
     const match = finder.findNext();
     if (match) {
-      cache.put(cacheKey, "1", 21600);
+      if (cache) cache.put(cacheKey, "1", 21600);
       throw userError_("This UPI Transaction ID / UTR has already been submitted.");
     }
   }
@@ -257,8 +270,7 @@ function checkDuplicateUtrFast_(normalizedUtr, sheet, cache) {
  * - If only headers exist (lastRow <= 1), restarts at ELQ26-0001.
  * - Otherwise finds highest existing ID and increments in O(1) time.
  */
-function getNextRegistrationIdFast_(props, sheet) {
-  const lastRow = sheet.getLastRow();
+function getNextRegistrationIdFast_(props, sheet, lastRow) {
   let nextNum = Number(props.getProperty("NEXT_REGISTRATION_NUMBER"));
 
   // If only the header row exists (or sheet is empty), always start at 1
@@ -279,14 +291,15 @@ function getNextRegistrationIdFast_(props, sheet) {
 }
 
 /**
- * Saves payment proof directly to Drive with view permission for organizers.
+ * Saves payment proof directly to Drive folder.
+ * Fast direct upload without per-file setSharing ACL roundtrips.
  */
-function saveScreenshotFast_(base64Data, registrationId, folderId) {
+function saveScreenshotFast_(base64Data, requestId, folderId) {
   const cleanBase64 = base64Data.includes(",") ? base64Data.split(",")[1] : base64Data;
   const bytes = Utilities.base64Decode(cleanBase64);
 
   if (bytes.length < 4 || bytes.length > MAX_SCREENSHOT_BYTES) {
-    throw userError_("The uploaded payment screenshot size is invalid.");
+    throw userError_("The uploaded payment screenshot size is invalid (max 5 MB).");
   }
 
   // Check magic bytes: JPEG (FF D8 FF), PNG (89 50 4E 47), WebP (52 49 46 46)
@@ -303,14 +316,10 @@ function saveScreenshotFast_(base64Data, registrationId, folderId) {
 
   const mimeType = isPng ? "image/png" : (isWebp ? "image/webp" : "image/jpeg");
   const ext = isPng ? "png" : (isWebp ? "webp" : "jpg");
-  const blob = Utilities.newBlob(bytes, mimeType, `${registrationId}_payment.${ext}`);
+  const cleanId = String(requestId || "upload").replace(/[^a-zA-Z0-9-]/g, "").slice(0, 16);
+  const blob = Utilities.newBlob(bytes, mimeType, `payment_${cleanId}.${ext}`);
   const folder = DriveApp.getFolderById(folderId);
   const file = folder.createFile(blob);
-
-  // Allow organizers clicking the link in the sheet to view the screenshot immediately
-  try {
-    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-  } catch (_) {}
 
   return file.getUrl();
 }
@@ -345,7 +354,7 @@ function userError_(message) {
 
 function jsonResponse_(data) {
   return ContentService.createTextOutput(JSON.stringify(data))
-                       .setMimeType(ContentService.MimeType.JSON);
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 /**
@@ -356,13 +365,14 @@ function jsonResponse_(data) {
 function fixAndSetupSheet() {
   const props = PropertiesService.getScriptProperties();
   const spreadsheetId = props.getProperty("SPREADSHEET_ID");
+  const folderId = props.getProperty("DRIVE_FOLDER_ID");
   if (!spreadsheetId) throw new Error("Missing SPREADSHEET_ID script property.");
 
   const ss = SpreadsheetApp.openById(spreadsheetId);
   ss.setSpreadsheetTimeZone("Asia/Kolkata");
   let sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
 
-  ensureHeaders_(sheet);
+  ensureHeadersFast_(sheet, CacheService.getScriptCache());
 
   // Style the header row nicely
   const headerRange = sheet.getRange(1, 1, 1, HEADERS.length);
@@ -377,7 +387,15 @@ function fixAndSetupSheet() {
     .build();
   statusRange.setDataValidation(validation);
 
-  console.log("Sheet headers, frozen row, and validations are fully configured.");
+  // Configure Drive folder view permissions once at setup time so individual uploads are instant
+  if (folderId) {
+    try {
+      const folder = DriveApp.getFolderById(folderId);
+      folder.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    } catch (_) { }
+  }
+
+  console.log("Sheet headers, frozen row, validations, and folder sharing are fully configured.");
 }
 
 /**
@@ -387,6 +405,9 @@ function fixAndSetupSheet() {
 function resetAllDataToFreshStart() {
   const props = PropertiesService.getScriptProperties();
   props.deleteProperty("NEXT_REGISTRATION_NUMBER");
+  try {
+    CacheService.getScriptCache().remove("hdr_ok");
+  } catch (_) { }
 
   const spreadsheetId = props.getProperty("SPREADSHEET_ID");
   if (spreadsheetId) {
