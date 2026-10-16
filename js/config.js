@@ -51,11 +51,11 @@ window.ELOQVENT_CONFIG = {
     },
     {
       id: 2,
-      name: "Bhavith",
+      name: "Harisena",
       role: "Event Coordinator",
-      phone: "+91 77801 06774",
-      cleanPhone: "917780106774",
-      whatsappMessage: "Hi Bhavith, I have a query regarding ELOQVENT 2K26."
+      phone: "+91 93477 01328",
+      cleanPhone: "919347701328",
+      whatsappMessage: "Hi Harisena, I have a query regarding ELOQVENT 2K26."
     }
   ],
 
