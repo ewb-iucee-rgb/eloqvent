@@ -823,7 +823,7 @@
           <div class="rounded-2xl border border-neutral-800 bg-neutral-950 p-4">
             <div class="grid grid-cols-1 sm:grid-cols-[13rem_1fr] gap-5 items-center">
               <div class="shrink-0 rounded-xl bg-white p-2 w-52 h-52 flex items-center justify-center overflow-hidden">
-                <img id="payment-qr" src="photos/payment-qr.jpeg" alt="ELOQVENT 2K26 payment QR code" class="w-full h-full object-contain">
+                <img id="payment-qr" src="photos/original.jpg" alt="ELOQVENT 2K26 payment QR code" class="w-full h-full object-contain">
                 <div id="payment-qr-fallback" class="hidden text-center text-neutral-500 text-[11px] leading-4">Payment QR will appear here once the organizer adds it.</div>
               </div>
               <div class="min-w-0 text-center sm:text-left">
@@ -865,12 +865,12 @@
       </form>
 
       <div id="reg-success-state" class="hidden text-center py-8">
-        <div class="w-14 h-14 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center text-white mx-auto mb-4">
-          <i data-lucide="check" class="w-7 h-7"></i>
+        <div class="group w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-400/60 shadow-[0_0_25px_rgba(16,185,129,0.25)] flex items-center justify-center text-white mx-auto mb-4 transition-all duration-300 ease-out hover:scale-105 hover:shadow-[0_0_35px_rgba(16,185,129,0.4)] animate-[pulse_2s_ease-in-out_infinite]">
+          <i data-lucide="check" class="w-8 h-8 text-emerald-400"></i>
         </div>
         <h4 class="text-xl font-bold text-white mb-2">Registration Successful!</h4>
-        <p class="text-xs text-neutral-400 max-w-sm mx-auto mb-4">Your registration was submitted. Payment is awaiting organizer verification; this is not a payment confirmation.</p>
-        <div class="rounded-2xl border border-neutral-800 bg-neutral-950 p-4 max-w-sm mx-auto mb-6">
+        <p class="text-xs text-neutral-400 max-w-sm mx-auto mb-4">Your registration was submitted. Payment is awaiting organiser confirmation; this is not a payment confirmation.</p>
+        <div class="rounded-2xl border border-neutral-800 bg-neutral-950 p-4 max-w-sm mx-auto mb-6 transition-transform duration-300 hover:-translate-y-0.5 hover:border-emerald-500/40 hover:shadow-[0_12px_32px_rgba(16,185,129,0.08)]">
           <p class="text-[10px] uppercase tracking-wider text-neutral-500">Registration ID</p>
           <div class="flex items-center justify-center gap-2 mt-1">
             <p id="reg-success-id" class="text-xl font-mono font-bold text-white"></p>
@@ -882,11 +882,10 @@
           <dl class="grid grid-cols-2 gap-2 text-left mt-4 text-xs">
             <dt class="text-neutral-500">Event</dt><dd id="reg-success-event" class="text-right text-neutral-200"></dd>
             <dt class="text-neutral-500">Registration Fee</dt><dd id="reg-success-amount" class="text-right text-neutral-200"></dd>
-            <dt class="text-neutral-500">Payment status</dt><dd class="text-right text-amber-300">Pending Verification</dd>
           </dl>
           <p class="text-[11px] text-neutral-500 mt-2">Save this ID for future reference.</p>
         </div>
-        <button type="button" onclick="window.closeRegistrationModal()" class="px-6 py-2 rounded-full bg-neutral-900 text-white text-xs hover:bg-neutral-800 transition-colors">Done</button>
+        <button type="button" onclick="window.closeRegistrationModal()" class="px-6 py-2 rounded-full bg-neutral-900 text-white text-xs hover:bg-neutral-800 transition-colors shadow-lg shadow-black/30 hover:scale-[1.02] duration-200">Done</button>
       </div>
     </div>
   </div>

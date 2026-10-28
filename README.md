@@ -28,7 +28,7 @@ window.ELOQVENT_CONFIG = {
   // 2. Google Apps Script deployment URL; blank disables registration
   sheets: {
     webAppUrl: "YOUR_DEPLOYED_APPS_SCRIPT_EXEC_URL",
-    paymentQrImage: "photos/payment-qr.jpeg",
+    paymentQrImage: "photos/original.jpg",
     baseRegistrationCount: 148
   },
 
@@ -75,7 +75,7 @@ The existing registration modal supports individual registration for Elocution a
 5. Select `authorizeSetup` in the Apps Script function menu and click **Run**. Review and grant the requested Google Sheets and Drive permissions. This initializes the sheet and status protection. Then select **Deploy → New deployment → Web app**.
 6. Set **Execute as: Me**. Anonymous participants need access to submit, so set **Who has access: Anyone** if that option is available for your Google Workspace. This makes the endpoint public; keep the URL out of unrelated places and monitor submissions. The script applies server-side validation, an email-based rate limit, a honeypot, and idempotent retry handling.
 7. Copy the deployed `/exec` URL into `sheets.webAppUrl` in `js/config.js`. When changing the Apps Script later, deploy a new version of the web app.
-8. The organizer's payment QR is configured as `photos/payment-qr.jpeg`; change `sheets.paymentQrImage` in `js/config.js` if you replace it.
+8. The organizer's payment QR is configured as `photos/original.jpg`; change `sheets.paymentQrImage` in `js/config.js` if you replace it.
 
 The backend creates the `Registrations` tab and its columns on the first submission. If it finds the earlier multi-participant schema, it preserves that tab under a legacy name and creates a fresh individual-registration tab. It protects the Payment status column so only the script owner and addresses in `ORGANIZER_EMAILS` can edit it. Keep the spreadsheet and screenshot folder shared only with those authorized organizers. The screenshot files remain private in Drive; the sheet stores their Drive references.
 

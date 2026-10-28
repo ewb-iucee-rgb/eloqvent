@@ -45,7 +45,7 @@ function initRegistrationSystem() {
   if (!modal || !form) return;
 
   if (qr) {
-    qr.src = window.ELOQVENT_CONFIG?.sheets?.paymentQrImage || "photos/payment-qr.jpeg";
+    qr.src = window.ELOQVENT_CONFIG?.sheets?.paymentQrImage || "photos/original.jpg";
     qr.addEventListener("error", () => {
       qr.classList.add("hidden");
       qrFallback?.classList.remove("hidden");
